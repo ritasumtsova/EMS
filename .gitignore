@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/Stage-2_Server-v0.0-main
 
 # testing
 /coverage

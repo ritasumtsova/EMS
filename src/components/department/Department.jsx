@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { PATH, TOKEN } from '../API';
-const axios = require('axios');
+import API from '../../API';
 
 class Department extends Component {
     constructor (props) {
@@ -13,17 +12,18 @@ class Department extends Component {
     }
 
     componentDidMount () {
-        const id = this.props.match.params.id || null;
+        const getDepartmentInfo = async () => {
+            const id = this.props.match.params.id || null;
+            const data = await API.getDepartmentInfo(id);
 
-        axios({
-            method: 'get',
-            url: `${PATH}department/${id}`,
-            headers: {
-                Authorization: TOKEN
+            if (data.status === 200) {
+                this.setState({departmentInfo: data.data.description});
+            } else {
+                this.setState({error: data});
             }
-        })
-        .then(response => this.setState({departmentInfo: response.data.description}))
-        .catch(error => this.setState({error: error}))
+        };
+
+        getDepartmentInfo();
     }
     
     render () {

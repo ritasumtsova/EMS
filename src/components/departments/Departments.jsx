@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { PATH, TOKEN } from '../API';
-const axios = require('axios');
+import API from '../../API';
 
 
 class Departments extends Component {
@@ -15,15 +14,17 @@ class Departments extends Component {
     }
 
     componentDidMount () {
-        axios({
-            method: 'get',
-            url: `${PATH}department`,
-            headers: {
-                Authorization: TOKEN
+        const getDepartments = async () => {
+            const data = await API.getDepartments();
+
+            if (data.status === 200) {
+                this.setState({departments: data.data});
+            } else {
+                this.setState({error: data});
             }
-        })
-        .then(response => this.setState({departments: response.data}))
-        .catch(error => this.setState({error: error}))
+        };
+
+        getDepartments();
     }
     
     render () {
@@ -32,10 +33,10 @@ class Departments extends Component {
             return <div key={id}>
                 <Link to={`/departments/${id}`}>{`${name} department`}</Link>
             </div> 
-        })
+        });
 
         if (error) {
-            return <h2>404 Not Found/</h2>
+            return <h2>404 Not Found</h2>;
         } else {
             return (
                 <div>

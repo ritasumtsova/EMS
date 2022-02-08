@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /Stage-2_Server-v0.0-main
+.eslintrc.js
 
 # testing
 /coverage

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormControl, TextField, Button } from '@mui/material';
 
 class Login extends Component {
     constructor(props) {
@@ -17,15 +18,15 @@ class Login extends Component {
     
     render() {
         return (
-                <div>
-                        <h4>Login Form</h4>
-                        <form>
-                          <input placeholder="Login"/>
-                          <input placeholder="Password"/>
-                          <button type="submit" onClick={this.login}>Login</button>
-                        </form>
-                        <a href="./departments">departments</a>
-                </div>
+            <div>
+                <h4>Login Form</h4>
+                <FormControl>
+                    <TextField id="login" margin="normal" label="Login" variant="filled" />
+                    <TextField id="password" margin="normal" label="Password" variant="filled" />
+                    <Button variant="contained" type="submit" onClick={this.login}>Login</Button>
+                </FormControl>
+                <a href="./departments">departments</a>
+            </div>
         );
     }
 }

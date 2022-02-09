@@ -1,8 +1,6 @@
 const axios = require('axios');
 
 const API = {
-  PATH: 'http://localhost:3000/api/',
-  TOKEN: '0123456789',
   CONFIG: axios.create({
     baseURL: 'http://localhost:3000/api/',
     headers: {

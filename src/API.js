@@ -1,41 +1,26 @@
 const axios = require('axios');
 
-// const API = axios.create({
-//     baseURL: `http://localhost:3000/api/`,
-//     headers: {
-//         Authorization: '0123456789'
-//     }
-// });
-
-// export default API;
-
 const API = {
-    PATH: 'http://localhost:3000/api/',
-    TOKEN: '0123456789',
-
-    getDepartments () {
-        return axios({
-            method: 'get',
-            url: `${API.PATH}department`,
-            headers: {
-                Authorization: API.TOKEN
-            }
-        })
-        .then(response => response)
-        .catch(error => error)
+  PATH: 'http://localhost:3000/api/',
+  TOKEN: '0123456789',
+  CONFIG: axios.create({
+    baseURL: 'http://localhost:3000/api/',
+    headers: {
+      Authorization: '0123456789',
     },
-        
-    getDepartmentInfo (id) {
-        return axios({
-            method: 'get',
-            url: `${API.PATH}department/${id}`,
-            headers: {
-                Authorization: API.TOKEN
-            }
-        })
-        .then(response => response)
-        .catch(error => error)
-    }
-}
+  }),
+
+  getDepartments() {
+    return API.CONFIG.get('/department')
+      .then((response) => response)
+      .catch((error) => error);
+  },
+
+  getDepartmentInfo(id) {
+    return API.CONFIG.get(`/department/${id}`)
+      .then((response) => response)
+      .catch((error) => error);
+  },
+};
 
 export default API;

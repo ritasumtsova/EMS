@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './App.css';
 import { Container } from '@mui/material';
 
@@ -11,8 +12,8 @@ function App({ children }) {
   );
 }
 
-App.propTypes = {
-  children: PropTypes.func.isRequired,
-};
+// App.propTypes = {
+//   children: PropTypes.element.isRequired,
+// };
 
 export default App;

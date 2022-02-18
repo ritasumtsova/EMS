@@ -2,22 +2,19 @@ const axios = require('axios');
 
 const API = {
   CONFIG: axios.create({
-    baseURL: 'http://localhost:3000/api/',
+    baseURL: process.env.REACT_APP_BASEURL,
     headers: {
-      Authorization: '0123456789',
+      Authorization: process.env.REACT_APP_TOKEN,
     },
   }),
 
   getDepartments() {
     return API.CONFIG.get('/department')
-      .then((response) => response)
       .catch((error) => error);
   },
 
   getDepartmentInfo(id) {
-    return API.CONFIG.get(`/department/${id}`)
-      .then((response) => response)
-      .catch((error) => error);
+    return API.CONFIG.get(`/department/${id}`);
   },
 };
 

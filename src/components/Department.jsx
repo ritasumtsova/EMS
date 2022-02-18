@@ -16,10 +16,10 @@ export default class Department extends Component {
       const { match: { params: { id } } } = this.props || null;
       const data = await API.getDepartmentInfo(id);
 
-      if (data.status === 200) {
-        this.setState({ departmentInfo: data.data.description });
-      } else {
+      if (data.status !== 200) {
         this.setState({ error: data });
+      } else {
+        this.setState({ departmentInfo: data.data.description });
       }
     };
 

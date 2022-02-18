@@ -11,7 +11,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h4>Login Page</h4>
+        <h2>Login Page</h2>
         <a href="./departments">departments</a>
       </div>
     );

@@ -1,3 +1,3 @@
 Internship SoftServe project -- Employee management system
 
-React, React Router ^5
+Use React Classes not Hooks, React Router ^5

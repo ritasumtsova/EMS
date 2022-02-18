@@ -16,10 +16,10 @@ export default class Departments extends Component {
     const getDepartments = async () => {
       const data = await API.getDepartments();
 
-      if (data.status === 200) {
-        this.setState({ departments: data.data });
-      } else {
+      if (data.status !== 200) {
         this.setState({ error: data });
+      } else {
+        this.setState({ departments: data.data });
       }
     };
 
@@ -33,7 +33,7 @@ export default class Departments extends Component {
       ? <h2>404 Not Found</h2>
       : (
         <div>
-          <h3>Departments page</h3>
+          <h2>Departments page</h2>
           {departments.length ? dataToRender : null}
         </div>
       );

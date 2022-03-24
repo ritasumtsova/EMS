@@ -4,12 +4,13 @@ const API = {
   CONFIG: axios.create({
     baseURL: process.env.REACT_APP_BASEURL,
     headers: {
-      Authorization: localStorage.getItem(process.env.REACT_APP_TOKEN),
+      Authorization: process.env.REACT_APP_TOKEN,
     },
   }),
 
   getDepartments() {
-    return API.CONFIG.get('/department');
+    return API.CONFIG.get('/department')
+      .catch((error) => error);
   },
 
   getDepartmentInfo(id) {

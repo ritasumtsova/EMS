@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Button,
   ButtonGroup,
@@ -20,45 +21,46 @@ export default class Department extends Component {
   }
 
   componentDidMount() {
-    const getDepartmentInfo = async () => {
-      const { match: { params: { id } } } = this.props || null;
-      const data = await API.getDepartmentInfo(id);
-
-      if (data.status !== 200) {
-        this.setState({ error: data });
-      } else {
-        this.setState({ departmentInfo: data.data.description });
-      }
-    };
-
-    getDepartmentInfo();
+    this.getDepartmentInfo();
   }
+
+  getDepartmentInfo = async () => {
+    const { match: { params: { id } } } = this.props || null;
+    const { error, data } = await API.getDepartmentInfo(id);
+
+    if (error) {
+      this.setState({ error: data });
+    } else {
+      this.setState({ departmentInfo: data.description });
+    }
+  };
 
   render() {
     const { departmentInfo, error } = this.state;
-    const element = error
-      ? <h2>404 Not Found</h2>
-      : (
-        <Row className="Department">
-          <h2>{departmentInfo}</h2>
-          <Container className="Department__infowrapper">
-            <Col>
-              <div>Here will be some information about an employee</div>
-            </Col>
-            <Col>
-              <ButtonGroup>
-                <Button color="danger" disabled>
-                  Delete
-                </Button>
-                <Button color="primary" disabled>
-                  Edit
-                </Button>
-              </ButtonGroup>
-            </Col>
-          </Container>
-        </Row>
-      );
 
-    return element;
+    if (error) {
+      <Redirect to="/error" />;
+    }
+
+    return (
+      <Row className="Department">
+        <h2>{departmentInfo}</h2>
+        <Container className="Department__infowrapper">
+          <Col>
+            <div>Here will be some information about an employee</div>
+          </Col>
+          <Col>
+            <ButtonGroup>
+              <Button color="danger" disabled>
+                Delete
+              </Button>
+              <Button color="primary" disabled>
+                Edit
+              </Button>
+            </ButtonGroup>
+          </Col>
+        </Container>
+      </Row>
+    );
   }
 }

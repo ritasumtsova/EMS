@@ -17,17 +17,13 @@ class Login extends Component {
       password: '',
       isAuth: false,
     };
+
+    this.inputHandler = this.inputHandler.bind(this);
   }
 
-  loginInputHandler(e) {
+  inputHandler(e) {
     this.setState({
-      login: e.target.value,
-    });
-  }
-
-  passwordInputHandler(e) {
-    this.setState({
-      password: e.target.value,
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -62,7 +58,7 @@ class Login extends Component {
               id="login"
               placeholder="Login"
               value={login}
-              onChange={(e) => { this.loginInputHandler(e); }}
+              onChange={this.inputHandler}
             />
           </FormGroup>
           <FormGroup>
@@ -72,7 +68,7 @@ class Login extends Component {
               id="password"
               placeholder="Password"
               value={password}
-              onChange={(e) => { this.passwordInputHandler(e); }}
+              onChange={this.inputHandler}
             />
           </FormGroup>
           <Button color="primary" size="lg">Login</Button>

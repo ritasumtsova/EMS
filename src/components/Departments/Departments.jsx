@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {
   Button,
   ButtonGroup,
@@ -20,21 +20,26 @@ export default class Departments extends Component {
   }
 
   componentDidMount() {
-    const getDepartments = async () => {
-      const data = await API.getDepartments();
-
-      if (data.status !== 200) {
-        this.setState({ error: data });
-      } else {
-        this.setState({ departments: data.data });
-      }
-    };
-
-    getDepartments();
+    this.getDepartments();
   }
+
+  getDepartments = async () => {
+    const { error, data } = await API.getDepartments();
+
+    if (error) {
+      this.setState({ error: data });
+    } else {
+      this.setState({ departments: data });
+    }
+  };
 
   render() {
     const { departments, error } = this.state;
+
+    if (error) {
+      <Redirect to="/error" />;
+    }
+
     const dataToRender = departments.map(({ id, name }) => (
       <Row key={id} className="Departments">
         <Col>
@@ -52,12 +57,6 @@ export default class Departments extends Component {
       </Row>
     ));
 
-    const element = error
-      ? <h2>404 Not Found</h2>
-      : (
-        <div>{departments.length ? dataToRender : null}</div>
-      );
-
-    return element;
+    return <div>{departments.length ? dataToRender : null}</div>;
   }
 }

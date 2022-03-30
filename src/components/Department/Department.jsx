@@ -8,7 +8,8 @@ import {
   Row,
 } from 'reactstrap';
 import API from '../../API';
-import './Department.css';
+import AddButton from '../AddButton/AddButton';
+import './Department.scss';
 
 export default class Department extends Component {
   constructor(props) {
@@ -25,7 +26,8 @@ export default class Department extends Component {
   }
 
   getDepartmentInfo = async () => {
-    const { match: { params: { id } } } = this.props || null;
+    // eslint-disable-next-line react/destructuring-assignment
+    const id = this.props.match?.params?.id;
     const { error, data } = await API.getDepartmentInfo(id);
 
     if (error) {
@@ -43,24 +45,27 @@ export default class Department extends Component {
     }
 
     return (
-      <Row className="Department">
-        <h2>{departmentInfo}</h2>
-        <Container className="Department__infowrapper">
-          <Col>
-            <div>Here will be some information about an employee</div>
-          </Col>
-          <Col>
-            <ButtonGroup>
-              <Button color="danger" disabled>
-                Delete
-              </Button>
-              <Button color="primary" disabled>
-                Edit
-              </Button>
-            </ButtonGroup>
-          </Col>
-        </Container>
-      </Row>
+      <>
+        <AddButton />
+        <Row className="Department">
+          <h2>{departmentInfo}</h2>
+          <Container className="Department__info-wrapper">
+            <Col>
+              <div>Here will be some information about an employee</div>
+            </Col>
+            <Col>
+              <ButtonGroup>
+                <Button color="danger" disabled>
+                  Delete
+                </Button>
+                <Button color="primary" disabled>
+                  Edit
+                </Button>
+              </ButtonGroup>
+            </Col>
+          </Container>
+        </Row>
+      </>
     );
   }
 }

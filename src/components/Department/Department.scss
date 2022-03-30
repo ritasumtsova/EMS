@@ -1,5 +1,9 @@
-.Department__infowrapper {
+.Department {
+  margin-top: 20px;
+
+  &__info-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  }
 }

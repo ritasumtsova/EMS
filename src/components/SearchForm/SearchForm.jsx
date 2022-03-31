@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import './SearchForm.scss';
 
-class SearchForm extends Component {
+export default class SearchForm extends Component {
   constructor(props) {
     super(props);
 
@@ -39,5 +39,3 @@ class SearchForm extends Component {
     );
   }
 }
-
-export default SearchForm;

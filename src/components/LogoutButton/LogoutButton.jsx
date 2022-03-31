@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import './LogoutButton.scss';
 
-class LogoutButton extends Component {
+export default class LogoutButton extends Component {
   constructor(props) {
     super(props);
 
@@ -32,5 +32,3 @@ class LogoutButton extends Component {
     );
   }
 }
-
-export default LogoutButton;

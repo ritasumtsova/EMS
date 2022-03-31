@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import './Login.scss';
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +50,7 @@ class Login extends Component {
         <Container className="Login__wrapper-inner">
           <h1>Login Form</h1>
           <Form
-            className="Login__form"
+            className="Login__wrapper-inner-form"
             onSubmit={this.submitLogin}
           >
             <FormGroup>
@@ -80,5 +80,3 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;

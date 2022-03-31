@@ -26,7 +26,6 @@ export default class Department extends Component {
   }
 
   getDepartmentInfo = async () => {
-    // eslint-disable-next-line react/destructuring-assignment
     const id = this.props.match?.params?.id;
     const { error, data } = await API.getDepartmentInfo(id);
 

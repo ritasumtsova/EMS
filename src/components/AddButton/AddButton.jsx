@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Button } from 'reactstrap';
 import './AddButton.scss';
 
-export class AddButon extends Component {
+export default class AddButon extends Component {
   constructor(props) {
     super(props);
 
@@ -27,5 +27,3 @@ export class AddButon extends Component {
     );
   }
 }
-
-export default AddButon;

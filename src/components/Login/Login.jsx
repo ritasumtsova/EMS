@@ -7,9 +7,9 @@ import {
   Input,
   Container,
 } from 'reactstrap';
-import './Login.css';
+import './Login.scss';
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +19,7 @@ class Login extends Component {
     };
 
     this.inputHandler = this.inputHandler.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
   }
 
   inputHandler(e) {
@@ -46,36 +47,36 @@ class Login extends Component {
 
     return (
       <Container className="Login__wrapper">
-        <h1>Login Form</h1>
-        <Form
-          className="Login__form"
-          onSubmit={(e) => this.submitLogin(e)}
-        >
-          <FormGroup>
-            <Input
-              type="login"
-              name="login"
-              id="login"
-              placeholder="Login"
-              value={login}
-              onChange={this.inputHandler}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={this.inputHandler}
-            />
-          </FormGroup>
-          <Button color="primary" size="lg">Login</Button>
-        </Form>
+        <Container className="Login__wrapper-inner">
+          <h1>Login Form</h1>
+          <Form
+            className="Login__wrapper-inner-form"
+            onSubmit={this.submitLogin}
+          >
+            <FormGroup>
+              <Input
+                type="login"
+                name="login"
+                id="login"
+                placeholder="Login"
+                value={login}
+                onChange={this.inputHandler}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={this.inputHandler}
+              />
+            </FormGroup>
+            <Button color="primary" size="lg">Login</Button>
+          </Form>
+        </Container>
       </Container>
     );
   }
 }
-
-export default Login;

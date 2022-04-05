@@ -7,7 +7,9 @@ import {
   Row,
 } from 'reactstrap';
 import API from '../../API';
-import './Departments.css';
+import SearchForm from '../SearchForm/SearchForm';
+import AddButton from '../AddButton/AddButton';
+import './Departments.scss';
 
 export default class Departments extends Component {
   constructor(props) {
@@ -43,7 +45,7 @@ export default class Departments extends Component {
     const dataToRender = departments.map(({ id, name }) => (
       <Row key={id} className="Departments">
         <Col>
-          <p className="Departments__name">{`${name} department`}</p>
+          <span className="Departments__name">{`${name} department`}</span>
         </Col>
         <Col>
           <ButtonGroup>
@@ -57,6 +59,12 @@ export default class Departments extends Component {
       </Row>
     ));
 
-    return <div>{departments.length ? dataToRender : null}</div>;
+    return (
+      <div>
+        <SearchForm />
+        <AddButton />
+        {departments.length ? dataToRender : null}
+      </div>
+    );
   }
 }

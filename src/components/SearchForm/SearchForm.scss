@@ -1,0 +1,11 @@
+.SearchForm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 80px;
+  padding: 5px;
+
+  &__btn-wrapper {
+    display: flex;
+    justify-content: flex-start;
+  }
+}

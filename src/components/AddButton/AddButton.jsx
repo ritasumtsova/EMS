@@ -12,6 +12,7 @@ export default class AddButon extends Component {
   }
 
   render() {
+    const { text } = this.props;
     return (
       <Col className="AddButton" xs="4">
         <Button
@@ -21,7 +22,7 @@ export default class AddButon extends Component {
           block
           disabled
         >
-          Add +
+          {text}
         </Button>
       </Col>
     );

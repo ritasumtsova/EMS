@@ -8,10 +8,11 @@ import {
   Row,
 } from 'reactstrap';
 import API from '../../API';
+import withLoader from '../../HOC/withLoader';
 import AddButton from '../AddButton/AddButton';
 import './Department.scss';
 
-export default class Department extends Component {
+class Department extends Component {
   constructor(props) {
     super(props);
 
@@ -26,6 +27,10 @@ export default class Department extends Component {
   }
 
   getDepartmentInfo = async () => {
+    const { toggleLoader } = this.props;
+
+    toggleLoader();
+
     const id = this.props.match?.params?.id;
     const { error, data } = await API.getDepartmentInfo(id);
 
@@ -34,6 +39,8 @@ export default class Department extends Component {
     } else {
       this.setState({ departmentInfo: data.description });
     }
+
+    toggleLoader();
   };
 
   render() {
@@ -45,7 +52,7 @@ export default class Department extends Component {
 
     return (
       <>
-        <AddButton />
+        <AddButton text="Add new employee +" />
         <Row className="Department">
           <h2>{departmentInfo}</h2>
           <Container className="Department__info-wrapper">
@@ -68,3 +75,5 @@ export default class Department extends Component {
     );
   }
 }
+
+export default withLoader(Department);

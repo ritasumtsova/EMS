@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Col, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import DepartmentForm from '../DepartmentForm/DepartmentForm';
 import EmployeeForm from '../EmployeeForm/EmployeeForm';
-import './AddButton.scss';
+import './EditButton.scss';
 
-export default class AddButon extends Component {
+class EditButton extends Component {
   constructor(props) {
     super(props);
 
@@ -20,7 +20,6 @@ export default class AddButon extends Component {
   }
 
   toggleModalWindow = () => {
-    console.log('toogle modal is working');
     this.setState((prev) => ({ ...prev, isOpen: !prev.isOpen }));
   };
 
@@ -29,13 +28,13 @@ export default class AddButon extends Component {
 
     if (location === '/departments') {
       this.setState({
-        title: 'Add new department',
+        title: 'Edit department',
         isOpen: true,
         body: <DepartmentForm />,
       });
     } else {
       this.setState({
-        title: 'Add new employee',
+        title: 'Edit employee',
         isOpen: true,
         body: <EmployeeForm />,
       });
@@ -43,25 +42,19 @@ export default class AddButon extends Component {
   }
 
   render() {
-    const { text } = this.props;
     const { title, isOpen, body } = this.state;
-
-    console.log(this.props);
 
     return (
       <>
-        <Col className="AddButton" xs="4">
-          <Button
-            className="AddButton__btn"
-            color="success"
-            size="lg"
-            block
-            onClick={this.openModalWindow}
-          >
-            {text}
-          </Button>
-        </Col>
+        <Button
+          className="EditButton__btn"
+          color="primary"
+          onClick={this.openModalWindow}
+        >
+          Edit
+        </Button>
         <ModalWindow
+          className="EditButton__modal"
           title={title}
           isOpen={isOpen}
           body={body}
@@ -71,3 +64,5 @@ export default class AddButon extends Component {
     );
   }
 }
+
+export default EditButton;

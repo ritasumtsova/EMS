@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, withRouter } from 'react-router-dom';
 import {
   Button,
-  ButtonGroup,
   Col,
   Row,
 } from 'reactstrap';
@@ -10,6 +9,7 @@ import API from '../../API';
 import withLoader from '../../HOC/withLoader';
 import SearchForm from '../SearchForm/SearchForm';
 import AddButton from '../AddButton/AddButton';
+import EditButton from '../EditButton/EditButton';
 import './Departments.scss';
 
 class Departments extends Component {
@@ -44,6 +44,7 @@ class Departments extends Component {
 
   render() {
     const { departments, error } = this.state;
+    const { location } = this.props;
 
     if (error) {
       <Redirect to="/error" />;
@@ -54,14 +55,12 @@ class Departments extends Component {
         <Col>
           <span className="Departments__name">{`${name} department`}</span>
         </Col>
-        <Col>
-          <ButtonGroup>
-            <Button color="danger" disabled>Delete</Button>
-            <Button color="primary" disabled>Edit</Button>
-            <Button color="success">
-              <Link to={`/departments/${id}`} className="Departments__btn--link">Employees</Link>
-            </Button>
-          </ButtonGroup>
+        <Col className="Departments__btn-wrapper">
+          <Link to={`/departments/${id}`} className="Departments__btn--link">
+            <Button color="success">Employees</Button>
+          </Link>
+          <EditButton location={location.pathname} />
+          <Button color="danger" disabled>Delete</Button>
         </Col>
       </Row>
     ));
@@ -69,11 +68,11 @@ class Departments extends Component {
     return (
       <div>
         <SearchForm />
-        <AddButton text="Add new department +" />
+        <AddButton text="Add new department +" location={location.pathname} />
         {departments.length ? dataToRender : null}
       </div>
     );
   }
 }
 
-export default withLoader(Departments);
+export default withRouter(withLoader(Departments));

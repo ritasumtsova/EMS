@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link, withRouter } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {
   Button,
   Col,
@@ -8,6 +8,7 @@ import {
 import API from '../../API';
 import withLoader from '../../HOC/withLoader';
 import SearchForm from '../SearchForm/SearchForm';
+import DepartmentForm from '../DepartmentForm/DepartmentForm';
 import AddButton from '../AddButton/AddButton';
 import EditButton from '../EditButton/EditButton';
 import './Departments.scss';
@@ -44,7 +45,7 @@ class Departments extends Component {
 
   render() {
     const { departments, error } = this.state;
-    const { location } = this.props;
+    const body = <DepartmentForm />;
 
     if (error) {
       <Redirect to="/error" />;
@@ -59,7 +60,7 @@ class Departments extends Component {
           <Link to={`/departments/${id}`} className="Departments__btn--link">
             <Button color="success">Employees</Button>
           </Link>
-          <EditButton location={location.pathname} />
+          <EditButton title="Edit the department" body={body} />
           <Button color="danger" disabled>Delete</Button>
         </Col>
       </Row>
@@ -68,11 +69,11 @@ class Departments extends Component {
     return (
       <div>
         <SearchForm />
-        <AddButton text="Add new department +" location={location.pathname} />
+        <AddButton title="Add new department " body={body} />
         {departments.length ? dataToRender : null}
       </div>
     );
   }
 }
 
-export default withRouter(withLoader(Departments));
+export default withLoader(Departments);

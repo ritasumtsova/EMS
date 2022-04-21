@@ -5,12 +5,11 @@ import {
   Col,
   Row,
 } from 'reactstrap';
-import API from '../../API';
-import withLoader from '../../HOC/withLoader';
-import SearchForm from '../SearchForm/SearchForm';
-import DepartmentForm from '../DepartmentForm/DepartmentForm';
-import AddButton from '../AddButton/AddButton';
-import EditButton from '../EditButton/EditButton';
+import API from '../../../API';
+import withLoader from '../../../HOC/withLoader';
+import SearchForm from '../../SearchForm/SearchForm';
+import AddButton from '../../AddButton/AddButton';
+import EditButton from '../../EditButton/EditButton';
 import './Departments.scss';
 
 class Departments extends Component {
@@ -45,7 +44,6 @@ class Departments extends Component {
 
   render() {
     const { departments, error } = this.state;
-    const body = <DepartmentForm />;
 
     if (error) {
       <Redirect to="/error" />;
@@ -60,7 +58,7 @@ class Departments extends Component {
           <Link to={`/departments/${id}`} className="Departments__btn--link">
             <Button color="success">Employees</Button>
           </Link>
-          <EditButton title="Edit the department" body={body} />
+          <EditButton />
           <Button color="danger" disabled>Delete</Button>
         </Col>
       </Row>
@@ -69,7 +67,13 @@ class Departments extends Component {
     return (
       <div>
         <SearchForm />
-        <AddButton title="Add new department " body={body} />
+        <button type="button" data-modal="addDepartment">
+          Open add department
+        </button>
+        <button type="button" data-modal="editDepartment">
+          Open edit department
+        </button>
+        <AddButton type="button" data-modal="addDepartment" title="Add department " />
         {departments.length ? dataToRender : null}
       </div>
     );

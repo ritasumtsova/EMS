@@ -38,7 +38,7 @@ class ModalContextProvider extends Component {
       <ModalContext.Provider value={valueModalProvider}>
         {modalOpened
           && (
-          <ModalWindow isOpen={modalOpened} title={modalContent.title}>
+          <ModalWindow isOpen={modalOpened} title={modalContent.title} closeModal={this.closeModal}>
             {modalContent.children}
           </ModalWindow>
           )}

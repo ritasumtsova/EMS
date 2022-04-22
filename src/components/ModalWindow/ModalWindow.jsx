@@ -7,8 +7,6 @@ import {
   Button,
 } from 'reactstrap';
 
-import ModalContext from '../../contexts/ModalContext/ModalContext';
-
 class ModalWindow extends Component {
   constructor(props) {
     super(props);
@@ -18,13 +16,13 @@ class ModalWindow extends Component {
     };
   }
 
-  closeModalHandler = () => {
-    const { closeModal } = this.context;
-    closeModal();
-  };
-
   render() {
-    const { title, children, isOpen } = this.props;
+    const {
+      title,
+      children,
+      isOpen,
+      closeModal,
+    } = this.props;
 
     return (
       <Modal
@@ -40,7 +38,7 @@ class ModalWindow extends Component {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" disabled type="Submit">Save</Button>
-          <Button onClick={this.closeModalHandler} color="danger">Cancel</Button>
+          <Button onClick={closeModal} color="danger">Cancel</Button>
         </ModalFooter>
       </Modal>
     );
@@ -48,4 +46,3 @@ class ModalWindow extends Component {
 }
 
 export default ModalWindow;
-ModalWindow.contextType = ModalContext;

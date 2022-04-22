@@ -5,6 +5,7 @@ import {
   Col,
   Button,
 } from 'reactstrap';
+
 import './SearchForm.scss';
 
 export default class SearchForm extends Component {
@@ -23,7 +24,7 @@ export default class SearchForm extends Component {
           <Input
             className="SearchForm__input"
             type="text"
-            placeholder="This field does not functionality yet"
+            placeholder="This field does not have functionality yet"
           />
         </Col>
         <Col className="SearchForm__btn-wrapper" xs="4">

@@ -5,6 +5,7 @@ import {
   Col,
   Button,
 } from 'reactstrap';
+
 import './SearchForm.scss';
 
 export default class SearchForm extends Component {

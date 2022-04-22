@@ -5,11 +5,13 @@ import {
   Col,
   Row,
 } from 'reactstrap';
+
 import API from '../../../API';
 import withLoader from '../../../HOC/withLoader';
 import SearchForm from '../../SearchForm/SearchForm';
 import AddButton from '../../AddButton/AddButton';
 import EditButton from '../../EditButton/EditButton';
+import DepartmentForm from '../../DepartmentForm/DepartmentForm';
 import './Departments.scss';
 
 class Departments extends Component {
@@ -44,6 +46,7 @@ class Departments extends Component {
 
   render() {
     const { departments, error } = this.state;
+    const modalForm = <DepartmentForm />;
 
     if (error) {
       <Redirect to="/error" />;
@@ -58,7 +61,7 @@ class Departments extends Component {
           <Link to={`/departments/${id}`} className="Departments__btn--link">
             <Button color="success">Employees</Button>
           </Link>
-          <EditButton />
+          <EditButton title="Edit department " modalForm={modalForm} />
           <Button color="danger" disabled>Delete</Button>
         </Col>
       </Row>
@@ -67,13 +70,7 @@ class Departments extends Component {
     return (
       <div>
         <SearchForm />
-        <button type="button" data-modal="addDepartment">
-          Open add department
-        </button>
-        <button type="button" data-modal="editDepartment">
-          Open edit department
-        </button>
-        <AddButton type="button" data-modal="addDepartment" title="Add department " />
+        <AddButton title="Add department " modalForm={modalForm} />
         {departments.length ? dataToRender : null}
       </div>
     );

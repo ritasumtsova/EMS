@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spinner } from 'reactstrap';
+
 import './LoadingSpinner.scss';
 
 function LoadingSpinner() {

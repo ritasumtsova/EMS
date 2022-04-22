@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input } from 'reactstrap';
+
 import './EmployeeForm.scss';
 
 function EmployeeForm() {

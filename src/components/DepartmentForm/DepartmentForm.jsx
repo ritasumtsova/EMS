@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input } from 'reactstrap';
+
 import './DepartmentForm.scss';
 
 function DepartmentForm() {

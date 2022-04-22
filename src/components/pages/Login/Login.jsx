@@ -8,6 +8,7 @@ import {
   Container,
 } from 'reactstrap';
 
+import AuthAPI from '../../../API/Auth';
 import './Login.scss';
 
 export default class Login extends Component {
@@ -23,21 +24,33 @@ export default class Login extends Component {
     this.submitLogin = this.submitLogin.bind(this);
   }
 
+  submitLogin = async () => {
+    const { login, password } = this.state;
+    const { error, data } = await AuthAPI.login(login, password);
+
+    if (error) {
+      console.log(error);
+    } else {
+      localStorage.setItem(process.env.REACT_APP_TOKEN, data.token);
+      console.log(localStorage.getItem(process.env.REACT_APP_TOKEN));
+
+      this.setState({
+        isAuth: true,
+      });
+    }
+  };
+
   inputHandler(e) {
     this.setState({
       [e.target.name]: e.target.value,
     });
   }
 
-  submitLogin(e) {
-    e.preventDefault();
+  // loginHandler() {
+  //   const { login, password } = this.state;
 
-    localStorage.setItem(process.env.REACT_APP_TOKEN, process.env.REACT_APP_TOKEN);
-
-    this.setState({
-      isAuth: true,
-    });
-  }
+  //   AuthAPI.login(login, password);
+  // }
 
   render() {
     const { login, password, isAuth } = this.state;
@@ -74,7 +87,7 @@ export default class Login extends Component {
                 onChange={this.inputHandler}
               />
             </FormGroup>
-            <Button color="primary" size="lg">Login</Button>
+            <Button onClick={this.submitLogin} color="primary" size="lg">Login</Button>
           </Form>
         </Container>
       </Container>

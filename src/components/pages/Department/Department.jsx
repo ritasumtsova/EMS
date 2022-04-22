@@ -7,7 +7,7 @@ import {
   Row,
 } from 'reactstrap';
 
-import API from '../../../API';
+import DepartmentsAPI from '../../../API/Departments';
 import withLoader from '../../../HOC/withLoader';
 import AddButton from '../../AddButton/AddButton';
 import EditButton from '../../EditButton/EditButton';
@@ -21,6 +21,7 @@ class Department extends Component {
     this.state = {
       departmentInfo: null,
       error: null,
+      employees: [],
     };
   }
 
@@ -34,20 +35,38 @@ class Department extends Component {
     toggleLoader();
 
     const id = this.props.match?.params?.id;
-    const { error, data } = await API.getDepartmentInfo(id);
+    const { error, data } = await DepartmentsAPI.getDepartmentInfo(id);
 
     if (error) {
       this.setState({ error: data });
     } else {
-      this.setState({ departmentInfo: data.description });
+      this.setState({
+        departmentInfo: data.description,
+        employees: data.employees,
+      });
     }
 
     toggleLoader();
   };
 
   render() {
-    const { departmentInfo, error } = this.state;
+    const { departmentInfo, employees, error } = this.state;
     const modalForm = <EmployeeForm />;
+    const employeesToRender = employees.map((employee) => {
+      return (
+        <Container key={employee._id} className="Department__info-wrapper">
+          <Col>
+            <div>{`${employee.firstName} ${employee.lastName} ${employee.email}`}</div>
+          </Col>
+          <Col className="Department__info-wrapper-btn">
+            <EditButton title="Edit employee " modalForm={modalForm} />
+            <Button color="danger" disabled>
+              Delete
+            </Button>
+          </Col>
+        </Container>
+      );
+    });
 
     if (error) {
       <Redirect to="/error" />;
@@ -58,17 +77,7 @@ class Department extends Component {
         <AddButton title="Add employee " modalForm={modalForm} />
         <Row className="Department">
           <h2>{departmentInfo}</h2>
-          <Container className="Department__info-wrapper">
-            <Col>
-              <div>Here will be some information about an employee</div>
-            </Col>
-            <Col className="Department__info-wrapper-btn">
-              <EditButton title="Edit employee " modalForm={modalForm} />
-              <Button color="danger" disabled>
-                Delete
-              </Button>
-            </Col>
-          </Container>
+          {employeesToRender.length ? employeesToRender : <div>They have no employees yet</div>}
         </Row>
       </>
     );

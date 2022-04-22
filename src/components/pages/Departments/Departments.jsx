@@ -6,7 +6,8 @@ import {
   Row,
 } from 'reactstrap';
 
-import API from '../../../API';
+// import API from '../../../API';
+import DepartmentsAPI from '../../../API/Departments';
 import withLoader from '../../../HOC/withLoader';
 import SearchForm from '../../SearchForm/SearchForm';
 import AddButton from '../../AddButton/AddButton';
@@ -33,12 +34,12 @@ class Departments extends Component {
 
     toggleLoader();
 
-    const { error, data } = await API.getDepartments();
+    const { error, data } = await DepartmentsAPI.getDepartments();
 
     if (error) {
       this.setState({ error: data });
     } else {
-      this.setState({ departments: data });
+      this.setState({ departments: data.data });
     }
 
     toggleLoader();
@@ -52,13 +53,13 @@ class Departments extends Component {
       <Redirect to="/error" />;
     }
 
-    const dataToRender = departments.map(({ id, name }) => (
-      <Row key={id} className="Departments">
+    const dataToRender = departments.map((department) => (
+      <Row key={department._id} className="Departments">
         <Col>
-          <span className="Departments__name">{`${name} department`}</span>
+          <span className="Departments__name">{`${department.description} department`}</span>
         </Col>
         <Col className="Departments__btn-wrapper">
-          <Link to={`/departments/${id}`} className="Departments__btn--link">
+          <Link to={`/departments/${department._id}`} className="Departments__btn--link">
             <Button color="success">Employees</Button>
           </Link>
           <EditButton title="Edit department " modalForm={modalForm} />

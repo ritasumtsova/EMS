@@ -52,21 +52,26 @@ class Department extends Component {
   render() {
     const { departmentInfo, employees, error } = this.state;
     const modalForm = <EmployeeForm />;
-    const employeesToRender = employees.map((employee) => {
-      return (
-        <Container key={employee._id} className="Department__info-wrapper">
-          <Col>
-            <div>{`${employee.firstName} ${employee.lastName} ${employee.email}`}</div>
-          </Col>
-          <Col className="Department__info-wrapper-btn">
-            <EditButton title="Edit employee " modalForm={modalForm} />
-            <Button color="danger" disabled>
-              Delete
-            </Button>
-          </Col>
-        </Container>
-      );
-    });
+    const employeesToRender = employees.map((employee) => (
+      <Container key={employee._id} className="Department__info-wrapper">
+        <Col className="Department__info-wrapper-info">
+          <div>
+            <span className="Department__info-wrapper-info-title">Name</span>
+            <span>{`${employee.firstName} ${employee.lastName}`}</span>
+          </div>
+          <div>
+            <span className="Department__info-wrapper-info-title">Email</span>
+            <span>{employee.email}</span>
+          </div>
+        </Col>
+        <Col className="Department__info-wrapper-btn">
+          <EditButton title="Edit employee " modalForm={modalForm} />
+          <Button color="danger" disabled>
+            Delete
+          </Button>
+        </Col>
+      </Container>
+    ));
 
     if (error) {
       <Redirect to="/error" />;
@@ -77,7 +82,7 @@ class Department extends Component {
         <AddButton title="Add employee " modalForm={modalForm} />
         <Row className="Department">
           <h2>{departmentInfo}</h2>
-          {employeesToRender.length ? employeesToRender : <div>They have no employees yet</div>}
+          {employeesToRender.length ? employeesToRender : <div>Has no employees yet</div>}
         </Row>
       </>
     );
